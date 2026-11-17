@@ -97,15 +97,23 @@ def cmd_sample(a):
     from .sources import scrape_product, scrape_shopify_catalog, write_intake_csv
     cfg = load_config(a.config)
     langs = _langs(a.langs, cfg)
+    wanted = [w.strip().lower() for w in (a.only or "").split(",") if w.strip()]
     products: list[ProductInput] = []
     for url in a.urls:
         if "/products/" in url:
             products.append(scrape_product(url))
         else:
             try:
-                products += scrape_shopify_catalog(url, a.limit)
+                products += scrape_shopify_catalog(url, 250 if wanted else a.limit)
             except Exception:
                 products.append(scrape_product(url))
+    if wanted:
+        picked = [p for w in wanted for p in products if w in p.name.lower()]
+        picked = list({id(p): p for p in picked}.values())
+        missing = [w for w in wanted if not any(w in p.name.lower() for p in picked)]
+        if missing:
+            print(f"  not found in the shop: {', '.join(missing)}", file=sys.stderr)
+        products = picked or products
     products = products[: a.limit]
     if not products:
         sys.exit("No products found.")
@@ -150,6 +158,7 @@ def main(argv=None):
     sm = sub.add_parser("sample", help="scrape a prospect + generate + before/after PDF in one go")
     sm.add_argument("urls", nargs="+", help="shop root URL (Shopify) or product page URLs")
     sm.add_argument("--prospect", default="")
+    sm.add_argument("--only", help="comma list of product names (or parts) to pick from the shop")
     sm.add_argument("--limit", type=int, default=5)
     sm.add_argument("--langs")
     sm.add_argument("--out", default="sample")

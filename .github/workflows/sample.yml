@@ -11,6 +11,10 @@ on:
       prospect:
         description: "Shop name shown on the PDF"
         required: true
+      products:
+        description: "Optional: product names to pick, comma separated (else the first ones)"
+        required: false
+        default: ""
       limit:
         description: "How many products"
         required: false
@@ -41,13 +45,14 @@ jobs:
           PROSPECT: ${{ inputs.prospect }}
           LIMIT: ${{ inputs.limit }}
           LANGS: ${{ inputs.langs }}
+          ONLY: ${{ inputs.products }}
         run: |
           if [ -z "$ANTHROPIC_API_KEY" ]; then
             echo "::error::Add the ANTHROPIC_API_KEY secret first (Settings > Secrets and variables > Actions)."
             exit 1
           fi
           mkdir -p sample
-          listwell sample "$SHOP_URL" --prospect "$PROSPECT" --limit "$LIMIT" --langs "$LANGS" --out sample 2>&1 | tee sample/run.log || true
+          listwell sample "$SHOP_URL" --prospect "$PROSPECT" --limit "$LIMIT" --langs "$LANGS" --only "$ONLY" --out sample 2>&1 | tee sample/run.log || true
           test -f sample/sample.pdf
       - name: Images for DMs (one PNG per product page)
         run: |
