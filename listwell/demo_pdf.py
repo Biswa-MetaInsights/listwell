@@ -63,7 +63,7 @@ UI = {
                        "in Shopify of WooCommerce.",
                brand="Merk", category="Categorie", sku="SKU", price="Prijs", seo="SEO-titel",
                chars="tekens", meta="Metabeschrijving", tags="Tags", before="VOOR", after="NA",
-               also="OOK IN HET", empty="Geen beschrijving op de productpagina.",
+               also="OOK IN", empty="Geen beschrijving op de productpagina.",
                cta="Dit voor je hele catalogus?",
                cta2="We leveren bestanden die je direct in Shopify en WooCommerce importeert, nagelezen "
                     "door een mens.",
@@ -246,7 +246,8 @@ def build_demo_pdf(results: list[ProductResult], cfg: BrandConfig, out_path: str
         page += [top, Spacer(1, 0.35 * cm)]
 
         # Before / after
-        before_text = p.original_description.strip()
+        # drop emoji and other symbols the PDF font can't draw (they show as boxes)
+        before_text = re.sub(r"[\U0001F000-\U0001FAFF\u2600-\u27BF\uFE0F]", "", p.original_description).strip()
         before = [Paragraph(t["before"], st.label)]
         if before_text:
             words = before_text.split()
