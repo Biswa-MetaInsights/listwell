@@ -20,6 +20,9 @@ on:
         required: false
         default: "en,de,fr,nl"
 
+permissions:
+  contents: write  # to save results on the "samples" branch
+
 jobs:
   sample:
     runs-on: ubuntu-latest
@@ -52,6 +55,28 @@ jobs:
           pages=$(pdfinfo sample/sample.pdf | awk '/^Pages:/ {print $2}')
           # page 1 is the cover and the last page is the closing page
           pdftoppm -r 150 -png -f 2 -l $((pages - 1)) sample/sample.pdf sample/dm-product
+      - name: Save to the samples branch
+        if: always()
+        env:
+          PROSPECT: ${{ inputs.prospect }}
+        run: |
+          slug=$(echo "$PROSPECT" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]\+/-/g; s/^-//; s/-$//')
+          dest="samples/${slug}-run${{ github.run_number }}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898+github-actions[bot]@users.noreply.github.com"
+          git fetch origin samples || true
+          if git rev-parse --verify -q origin/samples >/dev/null; then
+            git worktree add /tmp/samples origin/samples && (cd /tmp/samples && git checkout -B samples)
+          else
+            git worktree add --orphan -b samples /tmp/samples
+          fi
+          mkdir -p "/tmp/samples/$dest"
+          cp -r sample/. "/tmp/samples/$dest/"
+          cd /tmp/samples
+          git add -A
+          git commit -m "Sample for $PROSPECT (run ${{ github.run_number }})"
+          git push origin samples
+          echo "Saved to branch samples, folder $dest"
       - name: Upload result
         if: always()
         uses: actions/upload-artifact@v4
