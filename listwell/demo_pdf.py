@@ -18,7 +18,7 @@ from reportlab.lib.units import cm
 from reportlab.lib.utils import ImageReader
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
-from reportlab.platypus import (Image, KeepTogether, PageBreak, Paragraph, SimpleDocTemplate,
+from reportlab.platypus import (Image, KeepInFrame, KeepTogether, PageBreak, Paragraph, SimpleDocTemplate,
                                 Spacer, Table, TableStyle)
 
 from .config import BrandConfig
@@ -225,7 +225,8 @@ def build_demo_pdf(results: list[ProductResult], cfg: BrandConfig, out_path: str
         p, after = r.product, r.for_language(primary_lang)
         if not after:
             continue
-        story.append(Paragraph(html.escape(p.name), st.h2))
+        page: list = []
+        page.append(Paragraph(html.escape(p.name), st.h2))
 
         # Photo + facts row
         img = next((im for im in (_load_image(ref, 5.5 * cm, 5.5 * cm) for ref in p.images) if im), None)
@@ -242,7 +243,7 @@ def build_demo_pdf(results: list[ProductResult], cfg: BrandConfig, out_path: str
             top = Table([[meta]], colWidths=[width])
         top.setStyle(TableStyle([("VALIGN", (0, 0), (-1, -1), "TOP"),
                                  ("LEFTPADDING", (0, 0), (-1, -1), 0)]))
-        story += [top, Spacer(1, 0.35 * cm)]
+        page += [top, Spacer(1, 0.35 * cm)]
 
         # Before / after
         before_text = p.original_description.strip()
@@ -264,7 +265,7 @@ def build_demo_pdf(results: list[ProductResult], cfg: BrandConfig, out_path: str
             ("LEFTPADDING", (0, 0), (-1, -1), 8), ("RIGHTPADDING", (0, 0), (-1, -1), 8),
             ("TOPPADDING", (0, 0), (-1, -1), 8), ("BOTTOMPADDING", (0, 0), (-1, -1), 8),
         ]))
-        story += [ba, Spacer(1, 0.4 * cm)]
+        page += [ba, Spacer(1, 0.4 * cm)]
 
         # Other languages
         others = [l for l in languages[1:] if r.for_language(l)]
@@ -279,7 +280,9 @@ def build_demo_pdf(results: list[ProductResult], cfg: BrandConfig, out_path: str
             lt.setStyle(TableStyle([("VALIGN", (0, 0), (-1, -1), "TOP"),
                                    ("LINEBELOW", (0, 0), (-1, -2), 0.3, colors.HexColor("#E5E7EB")),
                                    ("LEFTPADDING", (0, 0), (-1, -1), 2)]))
-            story.append(KeepTogether([Paragraph(t["also"], st.label), lt]))
+            page += [Paragraph(t["also"], st.label), lt]
+        # one product = exactly one page (and one DM image): shrink if it would overflow
+        story.append(KeepInFrame(width, doc.height - 2, page, mode="shrink"))
         if i < len(results) - 1:
             story.append(PageBreak())
 
