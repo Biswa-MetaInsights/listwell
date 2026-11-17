@@ -1,0 +1,55 @@
+name: Make a sample PDF
+
+# Run from the Actions tab: "Make a sample PDF" > "Run workflow".
+# Needs the repository secret ANTHROPIC_API_KEY (Settings > Secrets and variables > Actions).
+on:
+  workflow_dispatch:
+    inputs:
+      shop_url:
+        description: "Shop home page (Shopify) or one product page URL"
+        required: true
+      prospect:
+        description: "Shop name shown on the PDF"
+        required: true
+      limit:
+        description: "How many products"
+        required: false
+        default: "5"
+      langs:
+        description: "Languages, comma separated, main language first"
+        required: false
+        default: "en,de,fr,nl"
+
+jobs:
+  sample:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install .
+      - name: Generate sample
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SHOP_URL: ${{ inputs.shop_url }}
+          PROSPECT: ${{ inputs.prospect }}
+          LIMIT: ${{ inputs.limit }}
+          LANGS: ${{ inputs.langs }}
+        run: |
+          if [ -z "$ANTHROPIC_API_KEY" ]; then
+            echo "::error::Add the ANTHROPIC_API_KEY secret first (Settings > Secrets and variables > Actions)."
+            exit 1
+          fi
+          mkdir -p sample
+          listwell sample "$SHOP_URL" --prospect "$PROSPECT" --limit "$LIMIT" --langs "$LANGS" --out sample 2>&1 | tee sample/run.log || true
+          test -f sample/sample.pdf
+      - name: Upload result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sample-${{ github.run_number }}
+          path: sample/
+          if-no-files-found: warn
