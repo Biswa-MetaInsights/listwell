@@ -20,7 +20,8 @@ Then, for each prospect:
 1. Open the **Actions** tab and pick **Make a sample PDF**.
 2. Click **Run workflow**, fill in the shop URL and shop name, and click the green button.
 3. When the run turns green (a few minutes), open it and download the `sample-N` file
-   at the bottom. It contains `sample.pdf`, the import files and `run.log` with the cost.
+   at the bottom. It contains `sample.pdf`, one `dm-product-N.png` image per product (for Instagram DMs),
+   the import files and `run.log` with the cost.
 
 The shop URL can be a Shopify home page (it reads the first products) or a single
 product page. Read the PDF before you send it to anyone.

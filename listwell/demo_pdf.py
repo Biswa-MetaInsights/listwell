@@ -25,6 +25,68 @@ from .config import BrandConfig
 from .models import LANGUAGE_NAMES, ProductResult
 from .sources import USER_AGENT
 
+# PDF wording in the prospect's main language (first language of the run).
+UI = {
+    "en": dict(tagline="Product descriptions that sell, in every language your customers speak.",
+               prepared="Free sample prepared for", intro="{n} of your products, rewritten in {langs}.",
+               explain="Each page shows the current text next to the new version, with the other languages "
+                       "below. Every text comes with SEO title and meta description, ready to import into "
+                       "Shopify or WooCommerce.",
+               brand="Brand", category="Category", sku="SKU", price="Price", seo="SEO title",
+               chars="chars", meta="Meta description", tags="Tags", before="BEFORE", after="AFTER",
+               also="ALSO IN", empty="No description on the product page.",
+               cta="Want this for your whole catalogue?",
+               cta2="We deliver ready-to-import files for Shopify and WooCommerce, checked by a person "
+                    "before they reach you.",
+               months=["January", "February", "March", "April", "May", "June", "July", "August",
+                       "September", "October", "November", "December"],
+               langnames={"en": "English", "de": "German", "fr": "French", "nl": "Dutch", "it": "Italian"}),
+    "fr": dict(tagline="Des fiches produits qui vendent, dans chaque langue de vos clients.",
+               prepared="Échantillon gratuit préparé pour", intro="{n} de vos produits, réécrits en {langs}.",
+               explain="Chaque page montre le texte actuel à côté de la nouvelle version, avec les autres "
+                       "langues en dessous. Chaque texte inclut un titre SEO et une méta-description, prêts "
+                       "à importer dans Shopify ou WooCommerce.",
+               brand="Marque", category="Catégorie", sku="Réf.", price="Prix", seo="Titre SEO",
+               chars="caractères", meta="Méta-description", tags="Mots-clés", before="AVANT", after="APRÈS",
+               also="AUSSI EN", empty="Pas de description sur la page produit.",
+               cta="Vous voulez cela pour tout votre catalogue ?",
+               cta2="Nous livrons des fichiers prêts à importer dans Shopify et WooCommerce, relus par une "
+                    "personne avant de vous parvenir.",
+               months=["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août",
+                       "septembre", "octobre", "novembre", "décembre"],
+               langnames={"en": "anglais", "de": "allemand", "fr": "français", "nl": "néerlandais",
+                          "it": "italien"}),
+    "nl": dict(tagline="Productteksten die verkopen, in elke taal die je klanten spreken.",
+               prepared="Gratis voorbeeld voor", intro="{n} van je producten, herschreven in het {langs}.",
+               explain="Elke pagina toont de huidige tekst naast de nieuwe versie, met de andere talen "
+                       "eronder. Elke tekst heeft een SEO-titel en metabeschrijving, klaar om te importeren "
+                       "in Shopify of WooCommerce.",
+               brand="Merk", category="Categorie", sku="SKU", price="Prijs", seo="SEO-titel",
+               chars="tekens", meta="Metabeschrijving", tags="Tags", before="VOOR", after="NA",
+               also="OOK IN HET", empty="Geen beschrijving op de productpagina.",
+               cta="Dit voor je hele catalogus?",
+               cta2="We leveren bestanden die je direct in Shopify en WooCommerce importeert, nagelezen "
+                    "door een mens.",
+               months=["januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus",
+                       "september", "oktober", "november", "december"],
+               langnames={"en": "Engels", "de": "Duits", "fr": "Frans", "nl": "Nederlands", "it": "Italiaans"}),
+    "de": dict(tagline="Produkttexte, die verkaufen, in jeder Sprache Ihrer Kunden.",
+               prepared="Kostenlose Probe für", intro="{n} Ihrer Produkte, neu geschrieben auf {langs}.",
+               explain="Jede Seite zeigt den aktuellen Text neben der neuen Version, darunter die anderen "
+                       "Sprachen. Jeder Text enthält SEO-Titel und Meta-Beschreibung, bereit für den Import "
+                       "in Shopify oder WooCommerce.",
+               brand="Marke", category="Kategorie", sku="Art.-Nr.", price="Preis", seo="SEO-Titel",
+               chars="Zeichen", meta="Meta-Beschreibung", tags="Tags", before="VORHER", after="NACHHER",
+               also="AUCH AUF", empty="Keine Beschreibung auf der Produktseite.",
+               cta="Das für Ihren ganzen Katalog?",
+               cta2="Wir liefern importfertige Dateien für Shopify und WooCommerce, vor der Lieferung von "
+                    "einem Menschen geprüft.",
+               months=["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August",
+                       "September", "Oktober", "November", "Dezember"],
+               langnames={"en": "Englisch", "de": "Deutsch", "fr": "Französisch", "nl": "Niederländisch",
+                          "it": "Italienisch"}),
+}
+
 _FONT_DIRS = ["/usr/share/fonts/truetype/dejavu", "/Library/Fonts", str(Path.home() / "Library/Fonts"),
               "C:/Windows/Fonts", str(Path(__file__).parent / "fonts")]
 
@@ -112,6 +174,12 @@ def build_demo_pdf(results: list[ProductResult], cfg: BrandConfig, out_path: str
                    prospect: str = "", languages: list[str] | None = None) -> Path:
     languages = languages or cfg.languages
     primary_lang = languages[0]
+    t = UI.get(primary_lang, UI["en"])
+    tagline = t["tagline"] if cfg.tagline == UI["en"]["tagline"] else cfg.tagline
+
+    def lname(code):
+        return t["langnames"].get(code, LANGUAGE_NAMES.get(code, code))
+
     st = _Styles(cfg)
     out_path = Path(out_path)
     out_path.parent.mkdir(parents=True, exist_ok=True)
@@ -125,7 +193,7 @@ def build_demo_pdf(results: list[ProductResult], cfg: BrandConfig, out_path: str
         canvas.setFont(st.bold, 11)
         canvas.drawString(1.8 * cm, h - 0.72 * cm, cfg.name)
         canvas.setFont(st.font, 8)
-        canvas.drawRightString(w - 1.8 * cm, h - 0.72 * cm, cfg.tagline[:95])
+        canvas.drawRightString(w - 1.8 * cm, h - 0.72 * cm, tagline[:95])
         canvas.setFillColor(st.grey)
         footer = " · ".join(x for x in [cfg.company, cfg.website, cfg.contact_email] if x)
         canvas.drawString(1.8 * cm, 1.0 * cm, footer)
@@ -141,17 +209,15 @@ def build_demo_pdf(results: list[ProductResult], cfg: BrandConfig, out_path: str
 
     # Cover
     story += [Spacer(1, 3 * cm), Paragraph(html.escape(cfg.name), st.h1),
-              Paragraph(html.escape(cfg.tagline), st.body), Spacer(1, 1 * cm)]
+              Paragraph(html.escape(tagline), st.body), Spacer(1, 1 * cm)]
     if prospect:
-        story.append(Paragraph(f"Free sample prepared for <b>{html.escape(prospect)}</b>", st.h2))
-    lang_names = ", ".join(LANGUAGE_NAMES.get(l, l) for l in languages)
+        story.append(Paragraph(f"{t['prepared']} <b>{html.escape(prospect)}</b>", st.h2))
+    lang_names = ", ".join(lname(l) for l in languages)
     story += [
-        Paragraph(f"{len(results)} of your products, rewritten in {lang_names}.", st.body),
-        Paragraph("Each page shows the current text next to the new version, with the other "
-                  "languages below. Every text comes with SEO title and meta description, ready "
-                  "to import into Shopify or WooCommerce.", st.body),
+        Paragraph(t["intro"].format(n=len(results), langs=lang_names), st.body),
+        Paragraph(t["explain"], st.body),
         Spacer(1, 0.6 * cm),
-        Paragraph(date.today().strftime("%d %B %Y"), st.small),
+        Paragraph(f"{date.today().day} {t['months'][date.today().month - 1]} {date.today().year}", st.small),
         PageBreak(),
     ]
 
@@ -164,12 +230,12 @@ def build_demo_pdf(results: list[ProductResult], cfg: BrandConfig, out_path: str
         # Photo + facts row
         img = next((im for im in (_load_image(ref, 5.5 * cm, 5.5 * cm) for ref in p.images) if im), None)
         meta_lines = [f"<b>{k}:</b> {html.escape(v)}" for k, v in
-                      [("Brand", p.brand), ("Category", p.category), ("SKU", p.sku), ("Price", p.price)] if v]
+                      [(t["brand"], p.brand), (t["category"], p.category), (t["sku"], p.sku), (t["price"], p.price)] if v]
         meta = [Paragraph(m, st.small) for m in meta_lines]
-        meta += [Paragraph("<b>SEO title:</b> " + html.escape(after.seo_title)
-                           + f" <font color='#6B7280'>({len(after.seo_title)} chars)</font>", st.small),
-                 Paragraph("<b>Meta description:</b> " + html.escape(after.meta_description), st.small),
-                 Paragraph("<b>Tags:</b> " + html.escape(", ".join(after.tags)), st.small)]
+        meta += [Paragraph(f"<b>{t['seo']}:</b> " + html.escape(after.seo_title)
+                           + f" <font color='#6B7280'>({len(after.seo_title)} {t['chars']})</font>", st.small),
+                 Paragraph(f"<b>{t['meta']}:</b> " + html.escape(after.meta_description), st.small),
+                 Paragraph(f"<b>{t['tags']}:</b> " + html.escape(", ".join(after.tags)), st.small)]
         if img:
             top = Table([[img, meta]], colWidths=[6 * cm, width - 6 * cm])
         else:
@@ -180,14 +246,14 @@ def build_demo_pdf(results: list[ProductResult], cfg: BrandConfig, out_path: str
 
         # Before / after
         before_text = p.original_description.strip()
-        before = [Paragraph("BEFORE", st.label)]
+        before = [Paragraph(t["before"], st.label)]
         if before_text:
             words = before_text.split()
             clipped = " ".join(words[:220]) + (" …" if len(words) > 220 else "")
             before += [Paragraph(html.escape(line), st.before) for line in clipped.split("\n") if line.strip()]
         else:
-            before.append(Paragraph("<i>No description on the product page.</i>", st.before))
-        after_flow = [Paragraph(f"AFTER · {LANGUAGE_NAMES.get(primary_lang, primary_lang).upper()}", st.label_after),
+            before.append(Paragraph(f"<i>{t['empty']}</i>", st.before))
+        after_flow = [Paragraph(f"{t['after']} · {lname(primary_lang).upper()}", st.label_after),
                       Paragraph(html.escape(after.title), st.title_after)]
         after_flow += _html_to_flow(after.description_html, st.body)
         ba = Table([[before, after_flow]], colWidths=[width * 0.42, width * 0.58])
@@ -209,18 +275,17 @@ def build_demo_pdf(results: list[ProductResult], cfg: BrandConfig, out_path: str
                 rows.append([Paragraph(l.upper(), st.lang),
                              [Paragraph(f"<b>{html.escape(c.title)}</b>", st.body),
                               Paragraph(html.escape(c.short_description), st.body)]])
-            t = Table(rows, colWidths=[1.2 * cm, width - 1.2 * cm])
-            t.setStyle(TableStyle([("VALIGN", (0, 0), (-1, -1), "TOP"),
+            lt = Table(rows, colWidths=[1.2 * cm, width - 1.2 * cm])
+            lt.setStyle(TableStyle([("VALIGN", (0, 0), (-1, -1), "TOP"),
                                    ("LINEBELOW", (0, 0), (-1, -2), 0.3, colors.HexColor("#E5E7EB")),
                                    ("LEFTPADDING", (0, 0), (-1, -1), 2)]))
-            story.append(KeepTogether([Paragraph("ALSO IN", st.label), t]))
+            story.append(KeepTogether([Paragraph(t["also"], st.label), lt]))
         if i < len(results) - 1:
             story.append(PageBreak())
 
     # Closing page
-    story += [PageBreak(), Spacer(1, 3 * cm), Paragraph("Want this for your whole catalogue?", st.h2),
-              Paragraph("We deliver ready-to-import files for Shopify and WooCommerce, checked by a "
-                        "person before they reach you.", st.body)]
+    story += [PageBreak(), Spacer(1, 3 * cm), Paragraph(t["cta"], st.h2),
+              Paragraph(t["cta2"], st.body)]
     contact = " · ".join(x for x in [cfg.website, cfg.contact_email] if x)
     if contact:
         story.append(Paragraph(html.escape(contact), st.body))

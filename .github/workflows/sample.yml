@@ -46,6 +46,12 @@ jobs:
           mkdir -p sample
           listwell sample "$SHOP_URL" --prospect "$PROSPECT" --limit "$LIMIT" --langs "$LANGS" --out sample 2>&1 | tee sample/run.log || true
           test -f sample/sample.pdf
+      - name: Images for DMs (one PNG per product page)
+        run: |
+          sudo apt-get install -y -qq poppler-utils >/dev/null
+          pages=$(pdfinfo sample/sample.pdf | awk '/^Pages:/ {print $2}')
+          # page 1 is the cover and the last page is the closing page
+          pdftoppm -r 150 -png -f 2 -l $((pages - 1)) sample/sample.pdf sample/dm-product
       - name: Upload result
         if: always()
         uses: actions/upload-artifact@v4
