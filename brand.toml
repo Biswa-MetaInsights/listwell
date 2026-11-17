@@ -1,0 +1,19 @@
+# Everything brand-specific lives here. Rename the business by editing this file only.
+
+[brand]
+name = "Listwell"
+tagline = "Product descriptions that sell, in every language your customers speak."
+website = ""            # e.g. "listwell.eu"
+contact_email = ""      # e.g. "hello@listwell.eu"
+company = "Metainsights BV"
+primary_color = "#1F4E79"
+accent_color = "#E07A1F"
+
+[generation]
+model = "claude-opus-5-5"     # or "claude-sonnet-5-5" / "claude-haiku-5-5" to cut cost
+effort = "medium"             # low | medium | high
+use_fallbacks = true          # retry on another model if a request is declined
+inference_geo = ""            # set if you need inference pinned to a region
+languages = ["en", "de", "fr", "nl"]   # first = shop's main language
+tone = "warm, clear and concrete; no hype, no exclamation marks"
+concurrency = 4

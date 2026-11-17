@@ -1,0 +1,25 @@
+[project]
+name = "listwell"
+version = "0.1.0"
+description = "Multilingual AI product descriptions for small web shops (Shopify / WooCommerce)"
+requires-python = ">=3.11"
+dependencies = [
+  "anthropic>=2.9",
+  "pydantic>=2.7",
+  "beautifulsoup4>=4.12",
+  "pillow>=10",
+  "reportlab>=4",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[project.scripts]
+listwell = "listwell.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["listwell"]
