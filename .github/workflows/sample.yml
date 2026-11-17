@@ -80,7 +80,10 @@ jobs:
           cd /tmp/samples
           git add -A
           git commit -m "Sample for $PROSPECT (run ${{ github.run_number }})"
-          git push origin samples
+          for i in 1 2 3 4; do
+            git push origin samples && break
+            sleep $((i * 5)); git pull --rebase origin samples
+          done
           echo "Saved to branch samples, folder $dest"
       - name: Upload result
         if: always()
