@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import csv
+import sys
 import json
 import re
 import urllib.parse
@@ -211,6 +212,15 @@ def pick_products(products: list[ProductInput], wanted: list[str]) -> tuple[list
         hits = [p for p in products if nw and nw in _norm(p.name)]
         exact = [p for p in hits if _norm(p.name) == nw]
         best = (exact or sorted(hits, key=lambda p: len(p.name)))[:1]
+        if not best:  # loose match: most of the words, in any order ("27 cm" ~ "27cm", "grote" ~ "groot")
+            def score(p):
+                name = _norm(p.name).replace(" ", "")
+                words = nw.split()
+                return sum(1 for x in words if x in name or (len(x) > 4 and x[:-1] in name)) / len(words)
+            scored = sorted(((score(p), -len(p.name), i) for i, p in enumerate(products)), reverse=True)
+            if scored and scored[0][0] >= 0.6:
+                best = [products[scored[0][2]]]
+                print(f"  '{w}' matched loosely to '{best[0].name}'", file=sys.stderr)
         if best and best[0] not in picked:
             picked.append(best[0])
         elif not best:
@@ -260,10 +270,12 @@ def find_products(shop_url: str, wanted: list[str], limit: int) -> list[ProductI
     if wanted:
         found: list[ProductInput] = []
         for w in wanted:
-            try:
-                found += search_woocommerce(shop_url, w)
-            except Exception:
-                pass
+            terms = [w] + sorted((x for x in w.split() if len(x) > 4), key=len, reverse=True)[:1]
+            for term in terms:
+                try:
+                    found += search_woocommerce(shop_url, term)
+                except Exception:
+                    pass
         if found:
             return found
         raise ValueError(f"{shop_url}: not a Shopify or WooCommerce shop I can read; "

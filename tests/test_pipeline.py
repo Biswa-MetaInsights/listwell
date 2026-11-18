@@ -160,3 +160,10 @@ def test_woo_store_json():
                               "images": [{"src": "https://x/i.jpg"}], "categories": [{"name": "Kerst"}],
                               "permalink": "https://shop/p/snoeppot"}, "https://shop")
     assert p.price == "19.95 EUR" and p.shop_id == "7" and p.original_description == "Glas, 1 l"
+
+
+def test_pick_products_loose_match():
+    from listwell.sources import pick_products
+    ps = [ProductInput(name="Serveerschaal Groot - Groen - 27cm"), ProductInput(name="Mok blauw")]
+    picked, missing = pick_products(ps, ["Grote serveerschaal groen 27 cm"])
+    assert [p.name for p in picked] == ["Serveerschaal Groot - Groen - 27cm"] and not missing
