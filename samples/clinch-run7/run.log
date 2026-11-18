@@ -1,0 +1,13 @@
+Generating 3 product(s) in en, nl, fr with claude-opus-5-5...
+  [1/3] KRAFT CLUTCH • LILAC - ok
+  [2/3] KRAFT CLUTCH • ULTRA BLUE - ok
+  [3/3] KRAFT CLUTCH • CARAMEL - ok
+Tokens: 37,798 in / 11,761 out. Approx. API cost $0.39 ($0.129/product).
+sample/results.json
+sample/review.csv
+sample/shopify/products_en.csv
+sample/shopify/translations.csv
+sample/woocommerce/products_en.csv
+sample/woocommerce/products_nl.csv
+sample/woocommerce/products_fr.csv
+sample/sample.pdf
