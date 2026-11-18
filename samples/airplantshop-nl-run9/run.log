@@ -1,0 +1,12 @@
+Generating 3 product(s) in nl, de with claude-opus-5-5...
+  [1/3] Tillandsia araujei - ok
+  [2/3] 2x winter mutsje (4cm) - ok
+  [3/3] Tillandsia Pohliana - ok
+Tokens: 47,238 in / 10,848 out. Approx. API cost $0.41 ($0.135/product).
+sample/results.json
+sample/review.csv
+sample/shopify/products_nl.csv
+sample/shopify/translations.csv
+sample/woocommerce/products_nl.csv
+sample/woocommerce/products_de.csv
+sample/sample.pdf
