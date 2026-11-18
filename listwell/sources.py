@@ -187,7 +187,7 @@ def scrape_shopify_catalog(shop_url: str, limit: int = 25) -> list[ProductInput]
     base = shop_url.rstrip("/")
     out: list[ProductInput] = []
     page = 1
-    while len(out) < limit:
+    while len(out) < limit and page <= 20:
         body, _ = _get(f"{base}/products.json?limit={min(250, limit)}&page={page}")
         items = json.loads(body).get("products", [])
         if not items:
@@ -195,3 +195,77 @@ def scrape_shopify_catalog(shop_url: str, limit: int = 25) -> list[ProductInput]
         out.extend(_from_shopify_json(p, base) for p in items)
         page += 1
     return out[:limit]
+
+
+def _norm(text: str) -> str:
+    import unicodedata
+    text = unicodedata.normalize("NFKD", text or "").encode("ascii", "ignore").decode()
+    return re.sub(r"[^a-z0-9]+", " ", text.lower()).strip()
+
+
+def pick_products(products: list[ProductInput], wanted: list[str]) -> tuple[list[ProductInput], list[str]]:
+    """One product per wanted name: exact match first, else the shortest name containing it."""
+    picked, missing = [], []
+    for w in wanted:
+        nw = _norm(w)
+        hits = [p for p in products if nw and nw in _norm(p.name)]
+        exact = [p for p in hits if _norm(p.name) == nw]
+        best = (exact or sorted(hits, key=lambda p: len(p.name)))[:1]
+        if best and best[0] not in picked:
+            picked.append(best[0])
+        elif not best:
+            missing.append(w)
+    return picked, missing
+
+
+def _from_woo_store_json(p: dict, base_url: str) -> ProductInput:
+    prices = p.get("prices") or {}
+    price = ""
+    if prices.get("price"):
+        minor = int(prices.get("currency_minor_unit", 2) or 0)
+        price = f"{int(prices['price']) / 10 ** minor:.{minor}f} {prices.get('currency_code', '')}".strip()
+    desc = html_to_text(p.get("description") or "") or html_to_text(p.get("short_description") or "")
+    return ProductInput(
+        sku=p.get("sku") or "",
+        name=html_to_text(p.get("name", "")),
+        images=[i["src"] for i in (p.get("images") or [])[:3] if i.get("src")],
+        category=", ".join(c.get("name", "") for c in (p.get("categories") or [])[:2]),
+        price=price,
+        source_url=p.get("permalink") or base_url,
+        original_description=desc,
+        shop_handle=p.get("slug", ""),
+        shop_id=str(p.get("id", "")),
+    )
+
+
+def search_woocommerce(shop_url: str, term: str, limit: int = 20) -> list[ProductInput]:
+    """WooCommerce's public Store API: /wp-json/wc/store/v1/products?search=..."""
+    base = shop_url.rstrip("/")
+    q = urllib.parse.urlencode({"search": term, "per_page": limit})
+    body, _ = _get(f"{base}/wp-json/wc/store/v1/products?{q}")
+    items = json.loads(body)
+    if not isinstance(items, list):
+        raise ValueError("not a WooCommerce Store API response")
+    return [_from_woo_store_json(p, base) for p in items]
+
+
+def find_products(shop_url: str, wanted: list[str], limit: int) -> list[ProductInput]:
+    """Products from a shop home page: Shopify catalog, else WooCommerce search, else the page itself."""
+    try:
+        catalog = scrape_shopify_catalog(shop_url, 1000 if wanted else limit)
+        if catalog:
+            return catalog
+    except Exception:
+        pass
+    if wanted:
+        found: list[ProductInput] = []
+        for w in wanted:
+            try:
+                found += search_woocommerce(shop_url, w)
+            except Exception:
+                pass
+        if found:
+            return found
+        raise ValueError(f"{shop_url}: not a Shopify or WooCommerce shop I can read; "
+                         "pass product page URLs instead")
+    return [scrape_product(shop_url)]

@@ -94,26 +94,20 @@ def cmd_scrape(a):
 def cmd_sample(a):
     """Prospect a shop end-to-end: scrape -> generate -> export -> before/after PDF."""
     from .demo_pdf import build_demo_pdf
-    from .sources import scrape_product, scrape_shopify_catalog, write_intake_csv
+    from .sources import find_products, pick_products, scrape_product, write_intake_csv
     cfg = load_config(a.config)
     langs = _langs(a.langs, cfg)
-    wanted = [w.strip().lower() for w in (a.only or "").split(",") if w.strip()]
+    wanted = [w.strip() for w in (a.only or "").split(",") if w.strip()]
     products: list[ProductInput] = []
     for url in a.urls:
-        if "/products/" in url:
+        if "/products/" in url or "/product/" in url:
             products.append(scrape_product(url))
         else:
-            try:
-                products += scrape_shopify_catalog(url, 250 if wanted else a.limit)
-            except Exception:
-                products.append(scrape_product(url))
+            products += find_products(url, wanted, a.limit)
     if wanted:
-        picked = [p for w in wanted for p in products if w in p.name.lower()]
-        picked = list({id(p): p for p in picked}.values())
-        missing = [w for w in wanted if not any(w in p.name.lower() for p in picked)]
+        products, missing = pick_products(products, wanted)
         if missing:
             print(f"  not found in the shop: {', '.join(missing)}", file=sys.stderr)
-        products = picked or products
     products = products[: a.limit]
     if not products:
         sys.exit("No products found.")

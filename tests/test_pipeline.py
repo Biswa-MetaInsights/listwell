@@ -141,3 +141,22 @@ def test_cli_dry_run(tmp_path):
     assert (tmp_path / "review.csv").exists()
     main(["--config", str(ROOT / "brand.toml"), "pdf", str(tmp_path / "results.json"), "--prospect", "X"])
     assert (tmp_path / "sample.pdf").exists()
+
+
+def test_pick_products_one_per_name():
+    from listwell.sources import pick_products
+    ps = [ProductInput(name=n) for n in ["SIGNATURE EARRING", "PETITE SIGNATURE EARRINGS",
+                                         "Kerstboom 2026 Nummer 10", "Kerstboom 2026 Nummer 1", "Bague Noëlle"]]
+    picked, missing = pick_products(ps, ["Signature Earring", "2026 Nummer 1", "noelle", "Ghost"])
+    assert [p.name for p in picked] == ["SIGNATURE EARRING", "Kerstboom 2026 Nummer 1", "Bague Noëlle"]
+    assert missing == ["Ghost"]
+
+
+def test_woo_store_json():
+    from listwell.sources import _from_woo_store_json
+    p = _from_woo_store_json({"id": 7, "name": "Snoeppot met houten deksel", "slug": "snoeppot",
+                              "description": "<p>Glas, 1 l</p>", "prices": {"price": "1995",
+                              "currency_minor_unit": 2, "currency_code": "EUR"},
+                              "images": [{"src": "https://x/i.jpg"}], "categories": [{"name": "Kerst"}],
+                              "permalink": "https://shop/p/snoeppot"}, "https://shop")
+    assert p.price == "19.95 EUR" and p.shop_id == "7" and p.original_description == "Glas, 1 l"
