@@ -1,0 +1,13 @@
+  not found in the shop: Grote serveerschaal groen 27 cm
+Generating 2 product(s) in nl, fr, de with claude-opus-5-5...
+  [1/2] Groene Koffiekopjes met schotel - Set van 6 - ok
+  [2/2] Gekleurde Mokken - Medium -  Set van 6 - ok
+Tokens: 5,639 in / 9,830 out. Approx. API cost $0.22 ($0.110/product).
+sample/results.json
+sample/review.csv
+sample/shopify/products_nl.csv
+sample/shopify/translations.csv
+sample/woocommerce/products_nl.csv
+sample/woocommerce/products_fr.csv
+sample/woocommerce/products_de.csv
+sample/sample.pdf
