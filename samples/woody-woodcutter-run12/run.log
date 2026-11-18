@@ -1,0 +1,14 @@
+  not found in the shop: Gekleurde kerstboom 23 cm
+Generating 2 product(s) in nl, fr, de, en with claude-opus-5-5...
+  [1/2] Snoeppot met houten deksel | Kerst design - ok
+  [2/2] Houten Kerstkaartje - ok
+Tokens: 17,185 in / 10,712 out. Approx. API cost $0.28 ($0.141/product).
+sample/results.json
+sample/review.csv
+sample/shopify/products_nl.csv
+sample/shopify/translations.csv
+sample/woocommerce/products_nl.csv
+sample/woocommerce/products_fr.csv
+sample/woocommerce/products_de.csv
+sample/woocommerce/products_en.csv
+sample/sample.pdf
