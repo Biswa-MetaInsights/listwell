@@ -10,6 +10,7 @@ from datetime import date
 from pathlib import Path
 
 from bs4 import BeautifulSoup
+from PIL import Image as PILImage
 from reportlab.lib import colors
 from reportlab.lib.enums import TA_LEFT
 from reportlab.lib.pagesizes import A4
@@ -132,18 +133,22 @@ def _html_to_flow(markup: str, style: ParagraphStyle) -> list:
 
 
 def _load_image(ref: str, max_w: float, max_h: float) -> Image | None:
+    """Photo for the PDF, downscaled and re-encoded as JPEG so a sample stays small enough to email."""
     try:
         if ref.startswith(("http://", "https://")):
             req = urllib.request.Request(ref, headers={"User-Agent": USER_AGENT})
-            data = urllib.request.urlopen(req, timeout=20).read()
-            src = io.BytesIO(data)
+            raw = urllib.request.urlopen(req, timeout=20).read()
+            pil = PILImage.open(io.BytesIO(raw))
         else:
-            src = ref
-        iw, ih = ImageReader(src).getSize()
-        if isinstance(src, io.BytesIO):
-            src.seek(0)
+            pil = PILImage.open(ref)
+        pil = pil.convert("RGB")
+        pil.thumbnail((700, 700))  # ~250 dpi at the 5.5 cm shown, plenty for screen and print
+        buf = io.BytesIO()
+        pil.save(buf, format="JPEG", quality=82, optimize=True)
+        buf.seek(0)
+        iw, ih = pil.size
         scale = min(max_w / iw, max_h / ih)
-        return Image(src, width=iw * scale, height=ih * scale)
+        return Image(buf, width=iw * scale, height=ih * scale)
     except Exception:
         return None
 
