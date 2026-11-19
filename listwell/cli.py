@@ -105,9 +105,13 @@ def cmd_sample(a):
         else:
             products += find_products(url, wanted, a.limit)
     if wanted:
+        catalog = products
         products, missing = pick_products(products, wanted)
         if missing:
             print(f"  not found in the shop: {', '.join(missing)}", file=sys.stderr)
+            print(f"  the shop returned {len(catalog)} product(s), e.g.:", file=sys.stderr)
+            for p in catalog[:40]:
+                print(f"    - {p.name}", file=sys.stderr)
     products = products[: a.limit]
     if not products:
         sys.exit("No products found.")
