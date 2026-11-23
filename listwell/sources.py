@@ -215,6 +215,8 @@ def pick_products(products: list[ProductInput], wanted: list[str]) -> tuple[list
             continue
         nw = _norm(w)
         hits = [p for p in products if nw and nw in _norm(p.name)]
+        retail = [p for p in hits if p.brand.strip().lower() not in ("b2b", "wholesale", "groothandel")]
+        hits = retail or hits  # shops often list the same item twice: consumer and B2B
         exact = [p for p in hits if _norm(p.name) == nw]
         best = (exact or sorted(hits, key=lambda p: len(p.name)))[:1]
         if not best:  # loose match: most of the words, in any order ("27 cm" ~ "27cm", "grote" ~ "groot")

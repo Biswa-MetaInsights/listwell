@@ -175,3 +175,10 @@ def test_pick_products_by_handle():
     b = ProductInput(name="Celeste nacre", shop_handle="celeste-nacre")
     picked, missing = pick_products([a, b], ["celeste-nacre"])
     assert picked == [b] and not missing
+
+
+def test_pick_products_prefers_retail_listing():
+    from listwell.sources import pick_products
+    a = ProductInput(name="Liva pearl", brand="B2B", shop_handle="pb26001")
+    b = ProductInput(name="Liva pearl", brand="Petit Bonbon", shop_handle="liva-pearl")
+    assert pick_products([a, b], ["Liva pearl"])[0] == [b]
