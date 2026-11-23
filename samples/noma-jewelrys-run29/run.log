@@ -1,0 +1,12 @@
+Generating 3 product(s) in fr, nl with claude-opus-5-5...
+  [1/3] Bracelet Celi - ok
+  [2/3] Bague Jess - ok
+  [3/3] Boucle Golden - ok
+Tokens: 27,742 in / 9,507 out. Approx. API cost $0.30 ($0.100/product).
+sample/results.json
+sample/review.csv
+sample/shopify/products_fr.csv
+sample/shopify/translations.csv
+sample/woocommerce/products_fr.csv
+sample/woocommerce/products_nl.csv
+sample/sample.pdf

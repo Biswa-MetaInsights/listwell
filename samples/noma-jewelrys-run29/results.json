@@ -1,0 +1,255 @@
+[
+  {
+    "product": {
+      "sku": "",
+      "name": "Boucle Golden",
+      "facts": [
+        "Tag: black-friday-2026",
+        "Tag: solde"
+      ],
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0812/2705/5433/files/98CEF853-D641-4838-8128-2248EEFDC02D.jpg?v=1775980134",
+        "https://cdn.shopify.com/s/files/1/0812/2705/5433/files/711B1A8C-23A7-46AC-8FEF-4379D02F4882.jpg?v=1775980134",
+        "https://cdn.shopify.com/s/files/1/0812/2705/5433/files/64779775-190F-4611-85C5-0715B1F1132B.jpg?v=1775980134"
+      ],
+      "brand": "NOMA jewelrys",
+      "category": "",
+      "price": "14.39",
+      "source_url": "https://nomajewelrys.com/products/boucle-golden",
+      "original_description": "",
+      "shop_handle": "boucle-golden",
+      "shop_id": "10146842509641"
+    },
+    "copy": {
+      "copies": [
+        {
+          "language": "fr",
+          "title": "Créoles torsadées Boucle Golden couleur or avec pierres claires",
+          "short_description": "Créoles ondulées et torsadées couleur or, ornées de petites pierres claires serties le long de la torsade.",
+          "description_html": "<p>Une créole qui attrape la lumière à chaque mouvement : la Boucle Golden de NOMA jewelrys associe une forme torsadée couleur or à de petites pierres claires serties le long de la torsade. Le résultat est vivant sans être chargé.</p><ul><li><strong>Forme :</strong> créole ondulée et torsadée, à la ligne légèrement ovale</li><li><strong>Détail :</strong> petites pierres transparentes serties tout autour, visibles de face comme de profil</li><li><strong>Finition :</strong> couleur or brillante</li></ul><p>Portée seule, elle donne du relief à une tenue simple, avec un col roulé ou une chemise blanche. Elle s'accorde aussi avec des puces et de petits anneaux dorés si vous aimez composer votre oreille avec plusieurs piercings.</p>",
+          "bullet_points": [
+            "Créole ondulée et torsadée à la ligne légèrement ovale",
+            "Petites pierres claires serties le long de la torsade",
+            "Finition couleur or brillante qui capte la lumière",
+            "Belle de face comme de profil",
+            "Facile à associer à des puces et petits anneaux dorés"
+          ],
+          "seo_title": "Créoles torsadées couleur or à pierres | NOMA jewelrys",
+          "meta_description": "Créoles torsadées couleur or ornées de petites pierres claires. La Boucle Golden de NOMA jewelrys donne du relief à une tenue simple.",
+          "tags": [
+            "créoles torsadées",
+            "créoles dorées",
+            "créoles ondulées",
+            "boucles d'oreilles créoles",
+            "boucles d'oreilles dorées",
+            "créoles avec pierres",
+            "bijoux femme"
+          ]
+        },
+        {
+          "language": "nl",
+          "title": "Gedraaide oorringen Boucle Golden met heldere steentjes",
+          "short_description": "Golvende, gedraaide oorringen in goudkleur met kleine heldere steentjes langs de draai.",
+          "description_html": "<p>Deze oorringen vangen het licht bij elke beweging. De Boucle Golden van NOMA jewelrys combineert een gedraaide, goudkleurige vorm met kleine heldere steentjes die langs de draai zijn gezet. Opvallend, maar nooit druk.</p><ul><li><strong>Vorm:</strong> golvende, gedraaide oorring met een licht ovale lijn</li><li><strong>Detail:</strong> kleine transparante steentjes rondom, zichtbaar van voren en van opzij</li><li><strong>Afwerking:</strong> glanzend goudkleurig</li></ul><p>Draag je ze los, dan geven ze een eenvoudige outfit meteen iets extra's, bijvoorbeeld bij een coltrui of een wit overhemd. Heb je meerdere gaatjes, dan combineer je ze makkelijk met kleine goudkleurige knopjes en ringetjes.</p>",
+          "bullet_points": [
+            "Golvende, gedraaide oorring met een licht ovale lijn",
+            "Kleine heldere steentjes langs de hele draai",
+            "Glanzende goudkleurige afwerking",
+            "Mooi van voren en van opzij",
+            "Makkelijk te combineren met knopjes en kleine ringetjes"
+          ],
+          "seo_title": "Gedraaide goudkleurige oorringen met steentjes | NOMA",
+          "meta_description": "Gedraaide goudkleurige oorringen met kleine heldere steentjes. De Boucle Golden van NOMA jewelrys geeft een eenvoudige outfit net iets extra's.",
+          "tags": [
+            "gedraaide oorringen",
+            "goudkleurige oorringen",
+            "goudkleurige oorbellen",
+            "oorringen met steentjes",
+            "creolen goud",
+            "statement oorbellen",
+            "oorbellen dames"
+          ]
+        }
+      ],
+      "review_notes": [
+        "No material given: copy says 'couleur or' / 'goudkleurig' only. Please confirm base metal and plating (e.g. stainless steel, gold-plated, PVD) and whether it is nickel-free, then we can add it.",
+        "Stones are described only as small clear/transparent stones; please confirm the type (e.g. zirconia, glass, rhinestone).",
+        "No dimensions, weight or closure type provided; diameter/length and clasp type (click, hinge, pin) are useful for buyers.",
+        "Not confirmed whether the product is sold as a pair or single earring; please verify.",
+        "No care instructions known; care section omitted.",
+        "Shop tags 'black-friday-2026' and 'solde' are promotions and were deliberately not used in product copy.",
+        "Product name 'Boucle Golden' is French/English mix and brand spelling 'NOMA jewelrys' looks like a typo; please confirm both are intended."
+      ]
+    },
+    "model": "claude-opus-5-5",
+    "input_tokens": 15495,
+    "output_tokens": 3555
+  },
+  {
+    "product": {
+      "sku": "",
+      "name": "Bague Jess",
+      "facts": [
+        "Tag: bestseller",
+        "Tag: black-friday-2026"
+      ],
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0812/2705/5433/files/1186193C-AB30-4AC5-937D-A95B32638112.jpg?v=1763293583",
+        "https://cdn.shopify.com/s/files/1/0812/2705/5433/files/12FE4617-182A-4F0A-A074-E026A153C3F4.jpg?v=1763293583"
+      ],
+      "brand": "NOMA jewelrys",
+      "category": "",
+      "price": "11.99",
+      "source_url": "https://nomajewelrys.com/products/bague-jess",
+      "original_description": "",
+      "shop_handle": "bague-jess",
+      "shop_id": "9925569478985"
+    },
+    "copy": {
+      "copies": [
+        {
+          "language": "fr",
+          "title": "Bague Jess dorée à pierre ovale, effet double anneau",
+          "short_description": "Une bague de ton doré à effet double anneau, avec une pierre ovale transparente sertie à l'horizontale entre deux bandes.",
+          "description_html": "<p>La bague Jess donne l'effet de deux anneaux superposés en une seule pièce. Vous obtenez un look structuré et affirmé, sans avoir à assembler plusieurs bagues.</p><p>Une pierre ovale transparente, posée à l'horizontale et tenue par quatre griffes, se loge entre deux bandes de ton doré. La bande du dessus est fine et lisse. Celle du dessous est plus large, avec une forme ondulée et une nervure le long du bord qui accroche la lumière.</p><ul><li>Effet double anneau, ouvert au centre</li><li>Pierre ovale transparente sertie à l'horizontale</li><li>Finition dorée brillante</li><li>Bande inférieure ondulée, bande supérieure fine</li></ul><p>Portez-la seule pour un accent marqué, ou avec quelques anneaux fins pour une main plus chargée. Elle accompagne aussi bien une tenue de tous les jours qu'une soirée.</p>",
+          "bullet_points": [
+            "Effet de deux anneaux superposés en une seule bague",
+            "Pierre ovale transparente sertie à l'horizontale par quatre griffes",
+            "Bande supérieure fine et lisse, bande inférieure large et ondulée",
+            "Finition de ton doré brillante",
+            "Se porte seule ou avec des anneaux fins"
+          ],
+          "seo_title": "Bague dorée pierre ovale Jess | NOMA jewelrys",
+          "meta_description": "Bague dorée Jess à effet double anneau, avec une pierre ovale transparente sertie à l'horizontale. Un bijou structuré à porter seul ou superposé.",
+          "tags": [
+            "bague dorée",
+            "bague pierre ovale",
+            "bague double anneau",
+            "bague femme",
+            "bague solitaire dorée",
+            "bague moderne femme"
+          ]
+        },
+        {
+          "language": "nl",
+          "title": "Ring Jess goudkleurig met ovale steen en dubbele band",
+          "short_description": "Goudkleurige ring met het effect van een dubbele band en een heldere ovale steen die horizontaal tussen de twee banden is gezet.",
+          "description_html": "<p>Ring Jess geeft je het effect van twee gestapelde ringen in één. Zo heb je meteen een uitgesproken look, zonder dat je zelf ringen hoeft te combineren.</p><p>Een heldere ovale steen, horizontaal gezet en vastgehouden door vier pootjes, ligt tussen twee goudkleurige banden. De bovenste band is smal en glad. De onderste is breder, met een golvende vorm en een ribbel langs de rand die het licht mooi opvangt.</p><ul><li>Effect van een dubbele band, open in het midden</li><li>Heldere ovale steen in een horizontale zetting</li><li>Glanzende goudkleurige afwerking</li><li>Brede, golvende onderband en smalle bovenband</li></ul><p>Draag hem los voor een opvallend accent, of combineer hem met een paar dunne ringen voor een gelaagde look. Hij past net zo goed bij een outfit voor overdag als bij een avondje uit.</p>",
+          "bullet_points": [
+            "Effect van twee gestapelde ringen in één",
+            "Heldere ovale steen, horizontaal gezet met vier pootjes",
+            "Smalle gladde bovenband en brede golvende onderband",
+            "Glanzende goudkleurige afwerking",
+            "Mooi los of gecombineerd met dunne ringen"
+          ],
+          "seo_title": "Goudkleurige ring met ovale steen Jess | NOMA",
+          "meta_description": "Goudkleurige ring Jess met dubbele band en een heldere ovale steen in horizontale zetting. Opvallend los gedragen en mooi in een stapel ringen.",
+          "tags": [
+            "goudkleurige ring",
+            "ring met ovale steen",
+            "dubbele ring",
+            "statement ring",
+            "ring dames",
+            "ring met steen"
+          ]
+        }
+      ],
+      "review_notes": [
+        "No material is given: the metal (solid gold, gold-plated, stainless steel, brass?) and the stone type (zirconia, glass, crystal?) are unknown, so the copy only says 'ton doré / goudkleurig' and 'pierre transparente / heldere steen'. Please add material and stone so we can name them and avoid buyers assuming real gold or diamond.",
+        "No sizes or adjustability info. From the photo it is unclear whether the ring is open/adjustable or has fixed sizes; please confirm and add available sizes or ring dimensions.",
+        "The photo suggests the two bands are one connected piece; please confirm it is not sold as a set of two rings.",
+        "No care instructions provided (e.g. avoid water, perfume). If known, add them to the last paragraph.",
+        "The shop tag 'bestseller' was not used as a claim in the copy; only state it if supported by actual sales data, and preferably keep it as a shop badge rather than product text.",
+        "The 'black-friday-2026' tag is a promotional/shop-wide element and was left out of the product copy.",
+        "Brand name 'NOMA jewelrys' was kept as given; check the spelling (jewelrys vs. jewelry) before publishing."
+      ]
+    },
+    "model": "claude-opus-5-5",
+    "input_tokens": 6245,
+    "output_tokens": 3140
+  },
+  {
+    "product": {
+      "sku": "",
+      "name": "Bracelet Celi",
+      "facts": [
+        "Tag: black-friday-2026"
+      ],
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0812/2705/5433/files/62ECE67A-64DF-48C9-AA21-20690837C976.jpg?v=1756921599"
+      ],
+      "brand": "NOMA jewelrys",
+      "category": "",
+      "price": "13.80",
+      "source_url": "https://nomajewelrys.com/products/bracelet-celi",
+      "original_description": "",
+      "shop_handle": "bracelet-celi",
+      "shop_id": "9803145969993"
+    },
+    "copy": {
+      "copies": [
+        {
+          "language": "fr",
+          "title": "Bracelet Celi à segments crème marbrés et perles dorées",
+          "short_description": "Un bracelet épais aux grands segments crème effet marbré, rythmés par des perles rondes dorées et brillantes. Une touche lumineuse pour vos tenues de tous les jours.",
+          "description_html": "<p>Le bracelet Celi apporte une touche lumineuse à vos tenues du quotidien. Ses grands segments crème aux veines beige, à l'aspect marbré, alternent avec des perles rondes dorées au fini brillant : un contraste doux qui se remarque sans en faire trop.</p><p>Les segments légèrement incurvés suivent la forme du poignet, et le volume généreux du bracelet lui donne du caractère, que vous le portiez seul ou avec d'autres bijoux dorés.</p><ul><li><strong>Segments :</strong> tubes incurvés couleur crème, effet marbré beige, surface brillante</li><li><strong>Perles :</strong> billes rondes et petites rondelles de couleur dorée</li><li><strong>Style :</strong> bracelet épais, facile à associer au noir, au blanc ou aux tons neutres</li></ul><p>Une pièce simple à adopter, qui réchauffe aussi bien une chemise noire qu'un pull clair.</p>",
+          "bullet_points": [
+            "Grands segments incurvés couleur crème à l'effet marbré beige",
+            "Perles rondes et rondelles dorées au fini brillant",
+            "Volume généreux qui donne du caractère au poignet",
+            "Se porte seul ou associé à d'autres bijoux dorés",
+            "S'accorde facilement avec le noir, le blanc et les tons neutres"
+          ],
+          "seo_title": "Bracelet Celi crème et doré effet marbré | NOMA jewelrys",
+          "meta_description": "Bracelet Celi de NOMA jewelrys : bracelet épais aux segments crème effet marbré et perles dorées brillantes. Une touche lumineuse au quotidien.",
+          "tags": [
+            "bracelet femme",
+            "bracelet doré",
+            "bracelet perles",
+            "bracelet crème",
+            "bracelet effet marbre",
+            "bracelet épais",
+            "bijoux fantaisie",
+            "bracelet tendance"
+          ]
+        },
+        {
+          "language": "nl",
+          "title": "Armband Celi met crème gemarmerde segmenten en goudkleurige kralen",
+          "short_description": "Een stoere armband met grote crèmekleurige segmenten in marmerlook, afgewisseld met glanzende goudkleurige kralen. Een lichte, warme accent voor elke dag.",
+          "description_html": "<p>Met armband Celi geef je je dagelijkse outfit meteen een licht en warm accent. De grote crèmekleurige segmenten met beige aders hebben een gemarmerde look en wisselen af met ronde, glanzende goudkleurige kralen: een zacht contrast dat opvalt zonder overdreven te zijn.</p><p>De licht gebogen segmenten volgen de vorm van je pols, en door het royale volume heeft de armband echt karakter. Draag hem los of combineer hem met andere goudkleurige sieraden.</p><ul><li><strong>Segmenten:</strong> gebogen buisjes in crème met beige marmereffect en glanzend oppervlak</li><li><strong>Kralen:</strong> ronde kralen en kleine tussenringetjes in goudkleur</li><li><strong>Stijl:</strong> brede armband die mooi staat bij zwart, wit en neutrale tinten</li></ul><p>Een makkelijk te dragen sieraad dat net zo goed past bij een zwarte blouse als bij een lichte trui.</p>",
+          "bullet_points": [
+            "Grote gebogen segmenten in crème met beige marmereffect",
+            "Glanzende ronde kralen en tussenringetjes in goudkleur",
+            "Royaal volume dat je pols karakter geeft",
+            "Los te dragen of te combineren met andere goudkleurige sieraden",
+            "Past mooi bij zwart, wit en neutrale tinten"
+          ],
+          "seo_title": "Armband Celi crème en goud marmerlook | NOMA jewelrys",
+          "meta_description": "Armband Celi van NOMA jewelrys: brede armband met crèmekleurige segmenten in marmerlook en glanzende goudkleurige kralen. Een warm accent voor elke dag.",
+          "tags": [
+            "armband dames",
+            "gouden armband",
+            "kralenarmband",
+            "armband crème",
+            "armband marmerlook",
+            "brede armband",
+            "statement armband",
+            "sieraden dames"
+          ]
+        }
+      ],
+      "review_notes": [
+        "Material of the cream segments and gold-coloured beads is not provided (e.g. resin, acrylic, plated metal). Copy only says 'gold-coloured' and 'marble effect'. Please confirm before adding material details or words like 'gold-plated' or 'real marble'.",
+        "Closure type isn't given. The photo suggests an elastic stretch bracelet with no clasp, but this is not stated anywhere, so the copy does not mention it. Please confirm.",
+        "Size, circumference and segment dimensions are missing. Shoppers will want to know whether it fits their wrist. Please add measurements.",
+        "No care instructions were provided, so none are included in the copy.",
+        "The shop tag 'black-friday-2026' is a promotional label and was not used in the product copy. Any Black Friday price claim must follow EU Omnibus rules on reference prices (lowest price in the previous 30 days).",
+        "Brand name is written 'NOMA jewelrys' as supplied. Please check this spelling is intentional."
+      ]
+    },
+    "model": "claude-opus-5-5",
+    "input_tokens": 6002,
+    "output_tokens": 2812
+  }
+]
