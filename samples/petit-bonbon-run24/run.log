@@ -1,0 +1,12 @@
+Generating 3 product(s) in nl, de with claude-opus-5-5...
+  [1/3] Celeste nacré - ok
+  [2/3] Liva pearl - ok
+  [3/3] Hana olive - ok
+Tokens: 39,665 in / 10,115 out. Approx. API cost $0.36 ($0.120/product).
+sample/results.json
+sample/review.csv
+sample/shopify/products_nl.csv
+sample/shopify/translations.csv
+sample/woocommerce/products_nl.csv
+sample/woocommerce/products_de.csv
+sample/sample.pdf
