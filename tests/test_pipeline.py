@@ -167,3 +167,11 @@ def test_pick_products_loose_match():
     ps = [ProductInput(name="Serveerschaal Groot - Groen - 27cm"), ProductInput(name="Mok blauw")]
     picked, missing = pick_products(ps, ["Grote serveerschaal groen 27 cm"])
     assert [p.name for p in picked] == ["Serveerschaal Groot - Groen - 27cm"] and not missing
+
+
+def test_pick_products_by_handle():
+    from listwell.sources import pick_products
+    a = ProductInput(name="Celeste nacre", brand="B2B", shop_handle="pb-celeste")
+    b = ProductInput(name="Celeste nacre", shop_handle="celeste-nacre")
+    picked, missing = pick_products([a, b], ["celeste-nacre"])
+    assert picked == [b] and not missing

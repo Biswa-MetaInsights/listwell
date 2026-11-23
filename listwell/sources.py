@@ -205,9 +205,14 @@ def _norm(text: str) -> str:
 
 
 def pick_products(products: list[ProductInput], wanted: list[str]) -> tuple[list[ProductInput], list[str]]:
-    """One product per wanted name: exact match first, else the shortest name containing it."""
+    """One product per wanted name or shop handle: handle, exact name, else the shortest name containing it."""
     picked, missing = [], []
     for w in wanted:
+        by_handle = [p for p in products if p.shop_handle and p.shop_handle == w.strip()]
+        if by_handle:  # a shop handle (URL slug) is unambiguous, so it wins
+            if by_handle[0] not in picked:
+                picked.append(by_handle[0])
+            continue
         nw = _norm(w)
         hits = [p for p in products if nw and nw in _norm(p.name)]
         exact = [p for p in hits if _norm(p.name) == nw]
